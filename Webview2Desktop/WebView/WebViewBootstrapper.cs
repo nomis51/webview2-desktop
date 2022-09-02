@@ -91,6 +91,8 @@ public static class WebViewBootstrapper
 
     private static void WebView_OnNavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
     {
+        if (IsDev) return;
+
         lock (_navigateLock)
         {
             if (e.Uri == "about:blank") return;
