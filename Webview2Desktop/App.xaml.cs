@@ -1,13 +1,10 @@
 ﻿using System.Windows;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Webview2Desktop.WebView;
+using Webview2.Bindings;
 
 namespace Webview2Desktop;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
 public partial class App
 {
     public App()
@@ -22,6 +19,6 @@ public partial class App
 
     private void OnExit(object sender, ExitEventArgs e)
     {
-        WebViewBootstrapper.Dispose();
+        Bootstrapper.Instance.Dispose();
     }
 }

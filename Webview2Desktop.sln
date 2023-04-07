@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webview2Desktop", "Webview2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Releaser", "Releaser\Releaser.csproj", "{490C4D24-31DD-4631-974B-B7A137F9B771}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webview2.Bindings", "Webview2.Bindings\Webview2.Bindings.csproj", "{DEAA740E-008C-4316-B2C3-90EBE64393F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{490C4D24-31DD-4631-974B-B7A137F9B771}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{490C4D24-31DD-4631-974B-B7A137F9B771}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{490C4D24-31DD-4631-974B-B7A137F9B771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEAA740E-008C-4316-B2C3-90EBE64393F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEAA740E-008C-4316-B2C3-90EBE64393F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEAA740E-008C-4316-B2C3-90EBE64393F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEAA740E-008C-4316-B2C3-90EBE64393F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

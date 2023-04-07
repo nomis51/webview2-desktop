@@ -7,58 +7,10 @@
         mc:Ignorable="d"
         Title="Webview2Desktop"
         WindowStartupLocation="CenterScreen"
-        Background="LightGreen"
         Height="600"
         Width="1000">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Column="0">
-            <Label Content="C#"
-                   FontSize="24"
-                   HorizontalContentAlignment="Center"
-                   Background="Green"
-                   Foreground="White"
-                   FontWeight="Bold"
-                   Margin="0,0,0,20" />
-
-            <Border Background="White"
-                    CornerRadius="4"
-                    Margin="40,10"
-                    Padding="5 25">
-                <DockPanel LastChildFill="False"
-                           HorizontalAlignment="Center">
-                    <TextBox x:Name="TextBoxMessage"
-                             Width="200"
-                             Margin="0,0,5,0"
-                             TextChanged="TextBoxMessage_OnTextChanged" />
-                    <Button x:Name="ButtonTalkToAngular"
-                            Click="ButtonTalkToAngular_OnClick"
-                            IsEnabled="False"
-                            Content="Talk to Angular"
-                            Padding="15,5"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" />
-                </DockPanel>
-            </Border>
-
-            <Border BorderThickness="2"
-                    CornerRadius="4"
-                    Margin="50,10"
-                    Padding="5"
-                    x:Name="Border"
-                    Visibility="Hidden"
-                    Background="White">
-                <TextBlock HorizontalAlignment="Center"
-                           x:Name="TextBlockMessageReceived" />
-            </Border>
-        </StackPanel>
-
-        <wv2:WebView2 Grid.Column="1"
-                      Margin="0"
+        <wv2:WebView2 Margin="0"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch"
                       x:Name="WebView" />

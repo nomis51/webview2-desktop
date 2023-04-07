@@ -1,49 +1,33 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using Webview2Desktop.Models;
-using Webview2Desktop.ViewModels;
-using Webview2Desktop.WebView;
+using Webview2.Bindings;
+using Webview2.Bindings.Models;
 
 namespace Webview2Desktop;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
-    private readonly AppViewModel _viewModel;
-
-
     public MainWindow()
     {
         InitializeComponent();
-        _viewModel = new AppViewModel();
-        _viewModel.OnMessageEvent += ViewModel_OnMessageEvent;
 
-        Loaded += OnLoaded;
+        _ = Bootstrapper.Instance.Bootstrap(
+            WebView,
+            Ipc.Instance,
+            new BootstrapOptions("Webview2Desktop", "http://localhost:5173")
+        );
 
-        _ = WebViewBootstrapper.Bootstrap(WebView);
-    }
-
-    private void ViewModel_OnMessageEvent(string message)
-    {
-        Border.Visibility = Visibility.Visible;
-        TextBlockMessageReceived.Text = $"Message from Angular : {message}";
-    }
-
-    private void OnLoaded(object? sender, EventArgs e)
-    {
-        WebViewBootstrapper.PostMessageToWebContent(new WebViewMessage("initialized", true));
-    }
-
-    private void ButtonTalkToAngular_OnClick(object sender, RoutedEventArgs e)
-    {
-        _viewModel?.TalkToAngular(TextBoxMessage.Text);
-    }
-
-    private void TextBoxMessage_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        ButtonTalkToAngular.IsEnabled = !string.IsNullOrEmpty(TextBoxMessage.Text);
+        Task.Run(() =>
+        {
+            // Send a random number to webview every second
+            Random random = new();
+            while (true)
+            {
+                Thread.Sleep(1000);
+                Bootstrapper.Instance.PostMessage(new OutputMessage("random-number", random.Next(0, 100)));
+            }
+        });
     }
 }
