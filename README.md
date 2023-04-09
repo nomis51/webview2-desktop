@@ -15,3 +15,6 @@ Can be easily adapted to use any other JS frameworks such as Angular, Vue, React
 - Open the C# project
 - Run it with Visual Studio, Jetbrains Rider or dotnet CLI
 - The window will show up with the demo, enjoy!
+
+## TODO:
+- Add a typed frontend client to simplify client calling backend methods
