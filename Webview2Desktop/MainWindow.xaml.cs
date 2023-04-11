@@ -26,7 +26,7 @@ public partial class MainWindow : Window
             while (true)
             {
                 Thread.Sleep(1000);
-                Bootstrapper.Instance.PostMessage(new OutputMessage("random-number", random.Next(0, 100)));
+                Bootstrapper.Instance.PostMessage(new OutputMessage("randomNumber2", random.Next(0, 100)));
             }
         });
     }

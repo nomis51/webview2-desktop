@@ -2,6 +2,7 @@ import { filter, first, Observable, Subscription } from "rxjs";
 import { WebviewService } from "./webview";
 import { nanoid } from "nanoid";
 import { OutputMessage } from "../interfaces/webview/outputMessage";
+import { createQuery, Query } from "../interfaces/webview/bindings";
 
 class BackendServiceImpl {
     private get messageChannel(): Observable<OutputMessage> {
@@ -37,20 +38,46 @@ class BackendServiceImpl {
             );
     }
 
-    public subscribe(type: string, callback: (response: OutputMessage) => void, filter: ((message: OutputMessage) => boolean) | undefined = undefined): Subscription {
-        return this.listen(type, filter)
-            .subscribe(message => callback(message))
+    private parseQuery(query: Query): [string | undefined, any | undefined] {
+        const method = createQuery(query);
+        if (!method) return [undefined, undefined];
+
+        const data = (query as any)[method] as any;
+        return [method, !data ? undefined : data];
     }
 
-    public notify(type: string, data: any = undefined): string {
-        return this._send(type, data);
+    public subscribe(query: Query, callback: (response: OutputMessage) => void, filter: ((message: OutputMessage) => boolean) | undefined = undefined): Subscription | OutputMessage {
+        const [method, _] = this.parseQuery(query);
+        if (!method) return {
+            success: false,
+            message: "Invalid query"
+        };
+
+        return this.listen(method, filter)
+            .subscribe((message: OutputMessage) => callback(message))
     }
 
-    public send(method: string, data: any = undefined): Promise<OutputMessage> {
+    public notify(query: Query): string | OutputMessage {
+        const [method, data] = this.parseQuery(query);
+        if (!method) return {
+            success: false,
+            message: "Invalid query"
+        };
+
+        return this._send(method, data);
+    }
+
+    public send(query: Query): Promise<OutputMessage> {
         return new Promise((resolve) => {
+            const [method, data] = this.parseQuery(query);
+            if (!method) return resolve({
+                success: false,
+                message: "Invalid query"
+            });
+
             this._receive(
                 method,
-                data,
+                !data ? undefined : data,
                 resolve
             );
         })

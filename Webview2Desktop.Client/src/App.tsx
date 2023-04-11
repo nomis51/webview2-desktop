@@ -7,14 +7,18 @@ function App() {
   const [randomNumber1, setRandomNumber1] = useState(0);
 
   useEffect(() => {
-    BackendService.subscribe("random-number", res => {
+    BackendService.subscribe({
+      randomNumber2: {}
+    }, res => {
       setRandomNumber1(res.data);
     })
   }, [])
 
   const getRandomNumber = useCallback(async () => {
-    const response = await BackendService.send("randomNumber", {
-      min: 5
+    const response = await BackendService.send({
+      randomNumber: {
+        min: 5
+      }
     });
     setRandomNumber(response.data);
   }, []);
